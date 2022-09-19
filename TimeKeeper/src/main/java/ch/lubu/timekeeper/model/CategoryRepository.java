@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @see ch.lubu.timekeeper.controller.appController
  */
 
-public interface YearRepository extends JpaRepository<Year, Integer> {
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
 }

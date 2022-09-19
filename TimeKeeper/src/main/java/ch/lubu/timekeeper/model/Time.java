@@ -7,12 +7,22 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import java.sql.Date;
 
+/**
+ * This class represents the time table in the database.
+ * @author Lukas Bühler
+ * @version 1.0
+ *
+ */
+
 @Entity
-// sql table with indexing ;)
 @Table(name = "time", indexes = {
         @Index(name = "idx_time_amount", columnList = "amount")
+        /*
+         * indexierung der spalte amount
+         */
 })
 public class Time {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -44,27 +54,42 @@ public class Time {
     public void setDate(Date date) {
         this.date = date;
     }
-
+    /**
+     * FK Year
+     */
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "year_id", nullable = false)
     private Year year;
-
     public Year getYear() {
         return year;
     }
-
     public void setYear(Year year) {
         this.year = year;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
-    public User getUser() {
-        return user;
+    /**
+     * FK Category
+     */
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    @JoinColumn(name = "category_id")
+    private Category category;
+    public Category getCategory() {
+        return category;
     }
-    public void setUser(User user) {
-        this.user = user;
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+    /**
+     * FK Comment - Unique
+     */
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
+    public Comment getComment() {
+        return comment;
+    }
+    public void setComment(Comment comment) {
+        this.comment = comment;
     }
 
 }

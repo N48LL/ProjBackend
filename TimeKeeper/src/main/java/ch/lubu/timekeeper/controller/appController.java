@@ -12,22 +12,27 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * This class is the controller for the time entity.
  * @author Lukas Bühler
  * @version 1.0
- * @// TODO: 17.09.2022 add javadoc
  */
 @RestController
 @RequestMapping("/app")
 public class appController {
-
     @Autowired
     private TimeRepository timeRepository;
     @Autowired
     private YearRepository yearRepository;
 
-    // alle eintraege nach year
     @GetMapping("/{year}")
     public ResponseEntity<?> getAmountByYear(@PathVariable("year") int year) {
+        /**
+         * alle eintraege nach year
+         * @param year
+         * @return ResponseEntity.ok(times)
+         * @see TimeRepository
+         * @see Time
+         */
         List<Time> times = timeRepository.findByYear_Year(year);
         return ResponseEntity.ok(times);
     }
@@ -48,20 +53,27 @@ public class appController {
         }
     }
 
-
-
-
-
-    // show all time entries
     @GetMapping(path = "/all")
     public ResponseEntity<?> getAll() {
+        /**
+         * alle time eintraege
+         * @return ResponseEntity.ok(timeRepository.findAll());
+         * @see TimeRepository
+         * @see Time
+         */
         return ResponseEntity.ok(timeRepository.findAll());
     }
 
-    // show all years
     @GetMapping(path = "/allYears")
     public ResponseEntity<?> getAllYears() {
+        /**
+         * show all years
+         * @return ResponseEntity.ok(yearRepository.findAll());
+         * @see YearRepository
+         * @see Year
+         */
         return ResponseEntity.ok(yearRepository.findAll());
     }
+
 
 }
