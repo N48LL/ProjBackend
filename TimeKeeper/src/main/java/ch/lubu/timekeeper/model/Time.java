@@ -15,12 +15,7 @@ import java.util.Date;
  */
 
 @Entity
-@Table(name = "time", indexes = {
-        @Index(name = "idx_time_amount", columnList = "amount")
-})
-@NamedQueries({
-        @NamedQuery(name = "catById", query = "select t from Time t where t.category.id = :id")
-})
+@Table(name = "time")
 public class Time {
 
     @Id
@@ -69,7 +64,6 @@ public class Time {
     }
     public void setCategory(Category category) {
         this.category = category;
-
     }
 
     /**

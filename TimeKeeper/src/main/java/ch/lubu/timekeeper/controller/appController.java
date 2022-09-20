@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.List;
 
 /**
  * This class is the controller for the time entity.
@@ -60,6 +61,7 @@ public class appController {
         Time t = new Time();
         t.setAmount(newTime.getAmount());
 
+        Category category = (Category) CategoryRepository.findByCategoryId(newTime.getCategory());
         /* Category category = (Category) CategoryRepository.findByCategoryId(newTime.getCategory()); */
         t.setCategory(category);
         t.setComment(newTime.getComment());
