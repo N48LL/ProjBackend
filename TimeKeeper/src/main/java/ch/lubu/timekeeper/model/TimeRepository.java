@@ -1,6 +1,8 @@
 package ch.lubu.timekeeper.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import java.util.List;
 
 /**
@@ -10,16 +12,7 @@ import java.util.List;
 
 public interface TimeRepository extends JpaRepository<Time, Integer> {
 
-    // todo: useless?
-    List<Time> findByAmount(String amount);
-
-    List<Time> findByYear_Year(int year);
-    /**
-     * alle eintraege nach year
-     * @param year
-     * @return ResponseEntity.ok(times)
-     * @see Time
-     * @see ch.lubu.timekeeper.controller.appController
-     */
+    List<Time> findByCategoryId(Integer id);
+    List<Time> findByYear(Integer year);
 
 }

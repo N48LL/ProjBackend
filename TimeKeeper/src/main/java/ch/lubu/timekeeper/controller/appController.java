@@ -1,15 +1,16 @@
 package ch.lubu.timekeeper.controller;
 
+import ch.lubu.timekeeper.exception.TimeLoadException;
+import ch.lubu.timekeeper.model.Category;
+import ch.lubu.timekeeper.controller.TimeDto;
+import ch.lubu.timekeeper.model.CategoryRepository;
 import ch.lubu.timekeeper.model.Time;
 import ch.lubu.timekeeper.model.TimeRepository;
-import ch.lubu.timekeeper.model.Year;
-import ch.lubu.timekeeper.model.YearRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.text.ParseException;
 
 /**
  * This class is the controller for the time entity.
@@ -21,59 +22,56 @@ import java.util.Optional;
 public class appController {
     @Autowired
     private TimeRepository timeRepository;
-    @Autowired
-    private YearRepository yearRepository;
 
-    @GetMapping("/{year}")
-    public ResponseEntity<?> getAmountByYear(@PathVariable("year") int year) {
-        /**
-         * alle eintraege nach year
-         * @param year
-         * @return ResponseEntity.ok(times)
-         * @see TimeRepository
-         * @see Time
-         */
-        List<Time> times = timeRepository.findByYear_Year(year);
+    // Show ALL times
+    @GetMapping(path = "/all")
+    public ResponseEntity<Iterable<Time>> getAllTimes() {
+        Iterable<Time> times = timeRepository.findAll(); // this was null??? why?
+        try {
+            times = timeRepository.findAll();
+        } catch (Exception ex) {
+            throw new TimeLoadException();
+        }
+        return ResponseEntity.ok(times);
+    }
+    /*
+    // Create new time
+    @PostMapping(path = "/add")
+    public Time saveTime(@RequestBody Time time) {
+        return timeRepository.save(time);
+    }
+    */
+    // todo: change this to categoryRepo
+    @GetMapping(path = "/category/{id}")
+    public ResponseEntity<Iterable<Time>> getTimesByCategory(@PathVariable Integer id) {
+        Iterable<Time> times = timeRepository.findByCategoryId(id); // this was null???
+        try {
+            times = timeRepository.findByCategoryId(id);
+        } catch (Exception ex) {
+            throw new TimeLoadException();
+        }
         return ResponseEntity.ok(times);
     }
 
-    // add new time entry with year and amount
-    //todo: bug: this changes year to 0
-    @PostMapping(path = "/add/{year}/{amount}")
-    public ResponseEntity<?> addNewTime(@PathVariable("year") int year, @PathVariable("amount") String amount) {
-        Optional<Year> yearOptional = yearRepository.findById(year);
-        if (yearOptional.isPresent()) {
-            Time time = new Time();
-            time.setAmount(amount);
-            time.setYear(yearOptional.get());
-            timeRepository.save(time);
-            return ResponseEntity.ok(time);
-        } else {
-            return ResponseEntity.badRequest().body("Year not found");
+
+    // Insert new time
+    @PostMapping(path = "/add")
+    public ResponseEntity<String> addNewTime(@RequestBody TimeDto newTime) throws ParseException {
+        Time t = new Time();
+        t.setAmount(newTime.getAmount());
+
+        Category category = (Category) CategoryRepository.findByCategoryId(newTime.getCategory());
+        // cat by id
+        t.setCategory(new Category());
+        t.setComment(newTime.getComment());
+        t.setYear(Integer.valueOf(newTime.getYear()));
+        t.setDate(newTime.getDay(), newTime.getYear(), newTime.getMonth());
+
+        try {
+            timeRepository.save(t);
+        } catch (Exception ex) {
+            throw new TimeLoadException();
         }
+        return ResponseEntity.ok("Saved");
     }
-
-    @GetMapping(path = "/all")
-    public ResponseEntity<?> getAll() {
-        /**
-         * alle time eintraege
-         * @return ResponseEntity.ok(timeRepository.findAll());
-         * @see TimeRepository
-         * @see Time
-         */
-        return ResponseEntity.ok(timeRepository.findAll());
-    }
-
-    @GetMapping(path = "/allYears")
-    public ResponseEntity<?> getAllYears() {
-        /**
-         * show all years
-         * @return ResponseEntity.ok(yearRepository.findAll());
-         * @see YearRepository
-         * @see Year
-         */
-        return ResponseEntity.ok(yearRepository.findAll());
-    }
-
-
 }

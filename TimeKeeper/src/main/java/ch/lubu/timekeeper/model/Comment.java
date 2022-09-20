@@ -25,12 +25,11 @@ public class Comment {
     }
 
     @Column(name = "text")
-    private Long text;
-
-    public Long getText() {
+    private String text;
+    public String getText() {
         return text;
     }
-    public void setText(Long text) {
+    public void setText(String text) {
         this.text = text;
     }
 

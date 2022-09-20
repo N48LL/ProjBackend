@@ -22,12 +22,12 @@ public class Category {
         this.id = id;
     }
 
-    @Column(name = "category", nullable = false, unique = true)
-    private String category;
-    public String getCategory() {
-        return category;
+    @Column(name = "cat_name", unique = true)
+    private String catName;
+    public String getCatName() {
+        return catName;
     }
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCatName(String catName) {
+        this.catName = catName;
     }
 }

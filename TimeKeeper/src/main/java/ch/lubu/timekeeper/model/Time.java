@@ -1,11 +1,11 @@
 package ch.lubu.timekeeper.model;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * This class represents the time table in the database.
@@ -17,9 +17,9 @@ import java.sql.Date;
 @Entity
 @Table(name = "time", indexes = {
         @Index(name = "idx_time_amount", columnList = "amount")
-        /*
-         * indexierung der spalte amount
-         */
+})
+@NamedQueries({
+        @NamedQuery(name = "catById", query = "select t from Time t where t.category.id = :id")
 })
 public class Time {
 
@@ -45,40 +45,33 @@ public class Time {
         this.amount = amount;
     }
 
-    @Column(name = "date", nullable = false)
-    @CreationTimestamp
-    private Date date;
-    public Date getDate() {
-        return date;
-    }
-    public void setDate(Date date) {
-        this.date = date;
-    }
     /**
-     * FK Year
+     * Year
      */
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "year_id", nullable = false)
-    private Year year;
-    public Year getYear() {
+    @NotEmpty
+    @Column(name = "year", nullable = false, unique = true)
+    private Integer year;
+    public Integer getYear() {
         return year;
     }
-    public void setYear(Year year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
     /**
      * FK Category
      */
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
-    @JoinColumn(name = "category_id")
+    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
     public Category getCategory() {
         return category;
     }
     public void setCategory(Category category) {
         this.category = category;
+
     }
+
     /**
      * FK Comment - Unique
      */
@@ -90,6 +83,20 @@ public class Time {
     }
     public void setComment(Comment comment) {
         this.comment = comment;
+    }
+    /**
+     * FK Date
+     */
+    @Temporal(TemporalType.DATE)
+    @Column(name = "date", nullable = false)
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+    public void setDate(String year, String month, String day) throws ParseException {
+        String dateString = day+"."+month+"."+year;
+        this.date = new SimpleDateFormat("dd.MM.yyyy").parse(dateString);
     }
 
 }
