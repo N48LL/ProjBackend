@@ -60,9 +60,8 @@ public class appController {
         Time t = new Time();
         t.setAmount(newTime.getAmount());
 
-        Category category = (Category) CategoryRepository.findByCategoryId(newTime.getCategory());
-        // cat by id
-        t.setCategory(new Category());
+        /* Category category = (Category) CategoryRepository.findByCategoryId(newTime.getCategory()); */
+        t.setCategory(category);
         t.setComment(newTime.getComment());
         t.setYear(Integer.valueOf(newTime.getYear()));
         t.setDate(newTime.getDay(), newTime.getYear(), newTime.getMonth());
@@ -74,4 +73,5 @@ public class appController {
         }
         return ResponseEntity.ok("Saved");
     }
+
 }

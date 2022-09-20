@@ -1,13 +1,15 @@
 package ch.lubu.timekeeper.controller;
 
 import ch.lubu.timekeeper.model.Comment;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A DTO for the {@link ch.lubu.timekeeper.model.Time} entity
  */
-public class TimeDto {
+public class TimeDto implements Serializable {
 
     @NotEmpty
     private final String amount;

@@ -13,8 +13,6 @@ import java.util.Optional;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
-    static List<Category> findByCategoryId(Integer id) {
-        return null;
-    }
+    List<Category> findByCategoryId(Integer id);
 
 }
