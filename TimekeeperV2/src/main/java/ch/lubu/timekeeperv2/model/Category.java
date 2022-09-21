@@ -2,7 +2,7 @@ package ch.lubu.timekeeperv2.model;
 
 import javax.persistence.*;
 /**
- * This class is the controller for the category table in the database.
+ * This class is the entity for the category table in the database.
  * @author Lukas Bühler
  * @version 2.0
  */

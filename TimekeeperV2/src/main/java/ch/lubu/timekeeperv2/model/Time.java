@@ -1,7 +1,11 @@
 package ch.lubu.timekeeperv2.model;
 
 import javax.persistence.*;
-
+/**
+ * This class is the entity for the Time table in the database.
+ * @author Lukas Bühler
+ * @version 2.0
+ */
 @Entity
 @Table(name = "time")
 public class Time {
@@ -10,8 +14,8 @@ public class Time {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
-    @JoinColumn(name = "category_id", nullable = false, unique = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     @Column(name = "amount", nullable = false)

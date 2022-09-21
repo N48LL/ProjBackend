@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * This class is the controller for the date entity.
-        * @author Lukas Bühler
-        * @version 2.0
-        */
+ * @author Lukas Bühler
+ * @version 2.0
+ */
 
 @RestController
 @RequestMapping("/date")

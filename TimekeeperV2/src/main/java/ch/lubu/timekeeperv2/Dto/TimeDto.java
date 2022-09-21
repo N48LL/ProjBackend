@@ -1,7 +1,8 @@
-package ch.lubu.timekeeperv2.model;
+package ch.lubu.timekeeperv2.Dto;
+
+import ch.lubu.timekeeperv2.model.Time;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A DTO for the {@link Time} entity
