@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "date")
-public class Date {
+public class EntryDate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -19,7 +19,6 @@ public class Date {
     @Column(name = "date", nullable = false, unique = true)
     private java.util.Date date;
 
-    //Todo: add FK Time, Category
     @Column(name = "comment")
     private String comment;
 

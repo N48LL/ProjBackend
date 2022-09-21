@@ -1,6 +1,7 @@
 package ch.lubu.timekeeperv2.controller;
 
 import ch.lubu.timekeeperv2.Dto.TimeDto;
+import ch.lubu.timekeeperv2.exception.TimeCouldNotBeSavedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,12 @@ public class TimeController {
 
         time.setCategory(category);
         time.setAmount(newTime.getAmount());
-        return timeRepository.save(time);
+
+        try {
+            return timeRepository.save(time);
+        } catch (Exception ex) {
+            throw new TimeCouldNotBeSavedException(time);
+        }
     }
 
     // update time by id
@@ -45,7 +51,11 @@ public class TimeController {
 
         time.setCategory(category);
         time.setAmount(newTime.getAmount());
-        return timeRepository.save(time);
+        try {
+            return timeRepository.save(time);
+        } catch (Exception ex) {
+            throw new TimeCouldNotBeSavedException(time);
+        }
     }
 
     // delete Time entry by time id
