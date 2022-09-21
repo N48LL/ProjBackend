@@ -21,6 +21,18 @@ public class Time {
     @Column(name = "amount", nullable = false)
     private String amount;
 
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "entry_date_id", nullable = false)
+    private EntryDate entryDate;
+
+    public EntryDate getEntryDate() {
+        return entryDate;
+    }
+
+    public void setEntryDate(EntryDate entryDate) {
+        this.entryDate = entryDate;
+    }
+
     public String getAmount() {
         return amount;
     }
@@ -44,5 +56,8 @@ public class Time {
     public void setId(Integer id) {
         this.id = id;
     }
+
+
+
 
 }

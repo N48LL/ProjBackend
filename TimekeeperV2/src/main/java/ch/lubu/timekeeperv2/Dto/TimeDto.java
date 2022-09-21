@@ -1,5 +1,6 @@
 package ch.lubu.timekeeperv2.Dto;
 
+import ch.lubu.timekeeperv2.model.EntryDate;
 import ch.lubu.timekeeperv2.model.Time;
 
 import java.io.Serializable;
@@ -10,13 +11,15 @@ import java.io.Serializable;
 public class TimeDto implements Serializable {
     private CategoryDto category;
     private String amount;
+    private EntryDateDto entryDate;
 
     public TimeDto() {
     }
 
-    public TimeDto(CategoryDto category, String amount) {
+    public TimeDto(CategoryDto category, String amount, EntryDateDto entryDate) {
         this.category = category;
         this.amount = amount;
+        this.entryDate = entryDate;
     }
 
     public CategoryDto getCategory() {
@@ -36,4 +39,13 @@ public class TimeDto implements Serializable {
         this.amount = amount;
         return this;
     }
+
+    public EntryDateDto getEntryDate() {
+        return entryDate;
+    }
+    public TimeDto setEntryDate(EntryDateDto entryDate) {
+        this.entryDate = entryDate;
+        return this;
+    }
+
 }
