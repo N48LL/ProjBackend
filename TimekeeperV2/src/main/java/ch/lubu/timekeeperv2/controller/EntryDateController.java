@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
+@CrossOrigin
 @RequestMapping("/date")
 public class EntryDateController {
 

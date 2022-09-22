@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * @version 2.0
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/time")
 public class TimeController {
 

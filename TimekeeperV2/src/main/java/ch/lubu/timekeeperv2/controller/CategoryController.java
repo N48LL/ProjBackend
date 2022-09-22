@@ -1,6 +1,7 @@
 package ch.lubu.timekeeperv2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @version 2.0
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/category")
 public class CategoryController {
 
