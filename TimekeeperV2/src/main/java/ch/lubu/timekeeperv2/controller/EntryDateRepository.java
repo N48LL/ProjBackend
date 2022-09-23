@@ -10,4 +10,7 @@ import java.util.Date;
  * @author Lukas Bühler
  */
 public interface EntryDateRepository extends JpaRepository<EntryDate, Integer> {
+
+        @Query("SELECT d FROM EntryDate d WHERE YEAR(d.date) = ?1")
+        Iterable<EntryDate> findByYear(Integer year);
 }

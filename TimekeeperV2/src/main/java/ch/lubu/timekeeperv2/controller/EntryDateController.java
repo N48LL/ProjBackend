@@ -30,6 +30,12 @@ public class EntryDateController {
         return entryDateRepository.findAll();
     }
 
+    // show all dates where with matching year in date
+    @GetMapping(path = "/year/{year}")
+    public Iterable<EntryDate> getDatesByYear(@PathVariable Integer year) {
+        return entryDateRepository.findByYear(year);
+    }
+
    // create new entryDate
     @PostMapping(path = "/add")
     public EntryDate saveDate(@RequestBody EntryDateDto Dto) throws ParseException {
