@@ -30,10 +30,20 @@ public class EntryDateController {
         return entryDateRepository.findAll();
     }
 
-    // show all dates where with matching year in date
-    @GetMapping(path = "/year/{year}")
+    // show all by year
+    @GetMapping(path = "/{year}")
     public Iterable<EntryDate> getDatesByYear(@PathVariable Integer year) {
         return entryDateRepository.findByYear(year);
+    }
+    // show all by year + month
+    @GetMapping(path = "/{year}/{month}")
+    public Iterable<EntryDate> getDatesByMonth(@PathVariable Integer year, @PathVariable Integer month) {
+        return entryDateRepository.findByMonth(year, month);
+    }
+    // show single day by year + month + day
+    @GetMapping(path = "/{year}/{month}/{day}")
+    public EntryDate getDatesByDay(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
+        return entryDateRepository.findByDay(year, month, day);
     }
 
    // create new entryDate
