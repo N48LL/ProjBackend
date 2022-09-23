@@ -1,6 +1,10 @@
 package ch.lubu.timekeeperv2.model;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * This class is the entity for the category table in the database.
  * @author Lukas Bühler
@@ -33,8 +37,13 @@ public class EntryDate {
     public java.util.Date getDate() {
         return date;
     }
-    public void setDate(java.util.Date date) {
-        this.date = date;
+    public void setDate(String year, String month, String day) throws ParseException {
+        String dateString = day+"."+month+"."+year;
+        this.date = new SimpleDateFormat("dd.MM.yyyy").parse(dateString);
+    }
+
+    public String getYear() {
+        return new SimpleDateFormat("yyyy").format(date);
     }
 
     public Integer getId() {
