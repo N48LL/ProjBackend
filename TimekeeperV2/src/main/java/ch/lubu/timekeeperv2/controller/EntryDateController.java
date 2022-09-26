@@ -13,7 +13,6 @@ import java.text.ParseException;
 /**
  * This class is the controller for the date entity.
  * @author Lukas Bühler
- * @version 2.0
  */
 
 @RestController

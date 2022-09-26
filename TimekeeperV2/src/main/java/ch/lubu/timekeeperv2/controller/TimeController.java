@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 /**
  * This class is the controller for the time entity including FK category.
  * @author Lukas Bühler
- * @version 2.0
  */
 @RestController
 @CrossOrigin
@@ -30,8 +29,25 @@ public class TimeController {
         return timeRepository.findAll();
     }
 
+    // Show all by year
+    @GetMapping(path = "/{year}")
+    public Iterable<ch.lubu.timekeeperv2.model.Time> getTimesByYear(@PathVariable Integer year) {
+        return timeRepository.findByYear(year);
+    }
+
+    // show all by year + month
+    @GetMapping(path = "/{year}/{month}")
+    public Iterable<ch.lubu.timekeeperv2.model.Time> getTimesByMonth(@PathVariable Integer year, @PathVariable Integer month) {
+        return timeRepository.findByMonth(year, month);
+    }
+
+    // show single day by year + month + day
+    @GetMapping(path = "/{year}/{month}/{day}")
+    public Iterable<ch.lubu.timekeeperv2.model.Time> getTimesByDay(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
+        return timeRepository.findByDay(year, month, day);
+    }
+
     // create new time from TimeDto.java and find category by id
-    // fucking magic
     @PostMapping(path = "/add")
     public ch.lubu.timekeeperv2.model.Time saveTime(@RequestBody TimeDto newTime) {
         ch.lubu.timekeeperv2.model.Time time = new ch.lubu.timekeeperv2.model.Time();
