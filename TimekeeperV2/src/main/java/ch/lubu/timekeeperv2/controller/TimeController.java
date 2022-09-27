@@ -56,6 +56,7 @@ public class TimeController {
 
         time.setEntryDate(entryDate);
         time.setCategory(category);
+        //setAmount time to seconds
         time.setAmount(newTime.getAmount());
 
         try {
@@ -64,6 +65,19 @@ public class TimeController {
             throw new TimeCouldNotBeSavedException(time);
         }
     }
+
+    // show sum of amount by day - amount in form of hh:mm:ss
+    @GetMapping(path = "/{year}/{month}/{day}/sum")
+    public java.sql.Time getSumByDay(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
+        return timeRepository.findSumByDay(year, month, day);
+    }
+
+    // shows all category, amount by day
+    @GetMapping(path = "/{year}/{month}/{day}/sumbycategory")
+    public Iterable<Object[]> getSumByDayByCategory(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
+        return timeRepository.findSumByDayGroupByCategory(year, month, day);
+    }
+
 
     // update time by id
     @PutMapping(path = "/update/{id}")

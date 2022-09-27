@@ -10,13 +10,13 @@ import java.io.Serializable;
  */
 public class TimeDto implements Serializable {
     private CategoryDto category;
-    private String amount;
+    private java.sql.Time amount;
     private EntryDateDto entryDate;
 
     public TimeDto() {
     }
 
-    public TimeDto(CategoryDto category, String amount, EntryDateDto entryDate) {
+    public TimeDto(CategoryDto category, java.sql.Time amount, EntryDateDto entryDate) {
         this.category = category;
         this.amount = amount;
         this.entryDate = entryDate;
@@ -31,11 +31,11 @@ public class TimeDto implements Serializable {
         return this;
     }
 
-    public String getAmount() {
+    public java.sql.Time getAmount() {
         return amount;
     }
 
-    public TimeDto setAmount(String amount) {
+    public TimeDto setAmount(java.sql.Time amount) {
         this.amount = amount;
         return this;
     }

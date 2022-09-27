@@ -10,14 +10,24 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface TimeRepository extends JpaRepository<Time, Integer> {
 
-    // show all by year
+    // shows all by year
     @Query("SELECT t FROM Time t WHERE YEAR(t.entryDate.date) = ?1")
     Iterable<Time> findByYear(Integer year);
-    // show all by year + month
+
+    // shows all by year + month
     @Query("SELECT t FROM Time t WHERE YEAR(t.entryDate.date) = ?1 AND MONTH(t.entryDate.date) = ?2")
     Iterable<Time> findByMonth(Integer year, Integer month);
-    // show single day by year + month + day
+
+    // shows single day by year + month + day
     @Query("SELECT t FROM Time t WHERE YEAR(t.entryDate.date) = ?1 AND MONTH(t.entryDate.date) = ?2 AND DAY(t.entryDate.date) = ?3")
     Iterable<Time> findByDay(Integer year, Integer month, Integer day);
+
+    // shows sum of amount by day - amount in form of hh:mm:ss
+    @Query("SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(t.amount))) FROM Time t WHERE YEAR(t.entryDate.date) = ?1 AND MONTH(t.entryDate.date) = ?2 AND DAY(t.entryDate.date) = ?3")
+    java.sql.Time findSumByDay(Integer year, Integer month, Integer day);
+
+    // shows all category, amount by day
+    @Query("SELECT t.category, SEC_TO_TIME(SUM(TIME_TO_SEC(t.amount))) FROM Time t WHERE YEAR(t.entryDate.date) = ?1 AND MONTH(t.entryDate.date) = ?2 AND DAY(t.entryDate.date) = ?3 GROUP BY t.category")
+    Iterable<Object[]> findSumByDayGroupByCategory(Integer year, Integer month, Integer day);
 
 }

@@ -19,7 +19,7 @@ public class Time {
     private Category category;
 
     @Column(name = "amount", nullable = false)
-    private String amount;
+    private java.sql.Time amount;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "entry_date_id", nullable = false)
@@ -33,11 +33,11 @@ public class Time {
         this.entryDate = entryDate;
     }
 
-    public String getAmount() {
+    public java.sql.Time getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(java.sql.Time amount) {
         this.amount = amount;
     }
 
