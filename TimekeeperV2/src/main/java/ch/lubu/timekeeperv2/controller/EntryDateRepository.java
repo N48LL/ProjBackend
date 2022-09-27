@@ -21,4 +21,7 @@ public interface EntryDateRepository extends JpaRepository<EntryDate, Integer> {
         @Query("SELECT d FROM EntryDate d WHERE YEAR(d.date) = ?1 AND MONTH(d.date) = ?2 AND DAY(d.date) = ?3")
         EntryDate findByDay(Integer year, Integer month, Integer day);
 
+        // show all years limited to no dublicates
+        @Query("SELECT DISTINCT YEAR(d.date) FROM EntryDate d")
+        Iterable<Integer> findDistrictYears();
 }

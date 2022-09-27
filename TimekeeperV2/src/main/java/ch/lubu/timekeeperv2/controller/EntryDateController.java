@@ -5,7 +5,6 @@ import ch.lubu.timekeeperv2.exception.DateCouldNotBeSavedException;
 import ch.lubu.timekeeperv2.model.EntryDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -43,6 +42,11 @@ public class EntryDateController {
     @GetMapping(path = "/{year}/{month}/{day}")
     public EntryDate getDatesByDay(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
         return entryDateRepository.findByDay(year, month, day);
+    }
+    // show all years district
+    @GetMapping(path = "/years")
+    public Iterable<Integer> getYears() {
+        return entryDateRepository.findDistrictYears();
     }
 
    // create new entryDate

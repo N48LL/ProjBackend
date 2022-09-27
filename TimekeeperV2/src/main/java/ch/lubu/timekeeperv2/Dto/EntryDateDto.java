@@ -37,7 +37,6 @@ public class EntryDateDto implements Serializable {
     public String getComment() {
         return comment;
     }
-    // todo: check if useless
     public String setComment(String comment) {
         this.comment = comment;
         return comment;
@@ -61,7 +60,6 @@ public class EntryDateDto implements Serializable {
     public String getDay() {
         return day;
     }
-    // todo: check if useless
     public EntryDateDto setDay(String day) {
         this.day = day;
         return this;
