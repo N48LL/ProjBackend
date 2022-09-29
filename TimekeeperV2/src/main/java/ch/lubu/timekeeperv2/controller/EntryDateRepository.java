@@ -24,4 +24,6 @@ public interface EntryDateRepository extends JpaRepository<EntryDate, Integer> {
         // show all years limited to no dublicates
         @Query("SELECT DISTINCT YEAR(d.date) FROM EntryDate d")
         Iterable<Integer> findDistrictYears();
+
+
 }

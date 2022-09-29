@@ -1,9 +1,12 @@
 package ch.lubu.timekeeperv2.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * This class is the entity for the category table in the database.
@@ -25,6 +28,20 @@ public class EntryDate {
 
     @Column(name = "comment")
     private String comment;
+
+    //@OneToMany
+    //private Iterable<Time> times;
+    // hidden fk?
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "entryDate")
+    private List<Time> time;
+    public List<Time> getTimes() {
+        return time;
+    }
+    public void setTimes(List<Time> time) {
+        this.time = time;
+    }
+
+
 
     public String getComment() {
         return comment;

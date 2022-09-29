@@ -13,13 +13,14 @@ public class TimeDto implements Serializable {
     private java.sql.Time amount;
     private EntryDateDto entryDate;
 
-    public TimeDto() {
-    }
+    private Iterable<Time> time;
 
-    public TimeDto(CategoryDto category, java.sql.Time amount, EntryDateDto entryDate) {
+
+    public TimeDto(CategoryDto category, java.sql.Time amount, EntryDateDto entryDate, Iterable<Time> time) {
         this.category = category;
         this.amount = amount;
         this.entryDate = entryDate;
+        this.time = time;
     }
 
     public CategoryDto getCategory() {
@@ -47,5 +48,16 @@ public class TimeDto implements Serializable {
         this.entryDate = entryDate;
         return this;
     }
+
+    public Iterable<Time> getTime() {
+        return time;
+    }
+
+    public TimeDto setTime(Iterable<Time> time) {
+        this.time = time;
+        return this;
+    }
+
+
 
 }

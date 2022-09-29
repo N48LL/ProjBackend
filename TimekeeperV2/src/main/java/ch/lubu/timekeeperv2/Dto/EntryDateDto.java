@@ -3,6 +3,8 @@ package ch.lubu.timekeeperv2.Dto;
 import ch.lubu.timekeeperv2.model.EntryDate;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A DTO for the {@link EntryDate} entity
@@ -13,6 +15,7 @@ public class EntryDateDto implements Serializable {
     private String month;
     private String day;
     private String comment;
+
 
     public EntryDateDto(String year, String month, String day, String comment) {
         this.year = year;
@@ -33,6 +36,8 @@ public class EntryDateDto implements Serializable {
         this.id = id;
         return this;
     }
+
+
 
     public String getComment() {
         return comment;
