@@ -15,13 +15,15 @@ public class EntryDateDto implements Serializable {
     private String month;
     private String day;
     private String comment;
+    private List<TimeDto> time = new ArrayList<>();
 
 
-    public EntryDateDto(String year, String month, String day, String comment) {
+    public EntryDateDto(String year, String month, String day, String comment, List<TimeDto> time) {
         this.year = year;
         this.month = month;
         this.day = day;
         this.comment = comment;
+        this.time = time;
     }
 
     public EntryDateDto(Integer id) {
@@ -36,8 +38,6 @@ public class EntryDateDto implements Serializable {
         this.id = id;
         return this;
     }
-
-
 
     public String getComment() {
         return comment;
@@ -67,6 +67,14 @@ public class EntryDateDto implements Serializable {
     }
     public EntryDateDto setDay(String day) {
         this.day = day;
+        return this;
+    }
+
+    public List<TimeDto> getTime() {
+        return time;
+    }
+    public EntryDateDto setTime(List<TimeDto> time) {
+        this.time = time;
         return this;
     }
 

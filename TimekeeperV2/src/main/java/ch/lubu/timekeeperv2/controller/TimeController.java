@@ -73,8 +73,8 @@ public class TimeController {
     }
 
     // shows all category, amount by day
-    @GetMapping(path = "/{year}/{month}/{day}/sumbycategory")
-    public Iterable<Object[]> getSumByDayByCategory(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
+    @GetMapping(path = "/{year}/{month}/{day}/daysum")
+    public Iterable<Object[]> getSumByDayWithCategory(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
         return timeRepository.findSumByDayGroupByCategory(year, month, day);
     }
 

@@ -12,7 +12,6 @@ public class TimeDto implements Serializable {
     private CategoryDto category;
     private java.sql.Time amount;
     private EntryDateDto entryDate;
-
     private Iterable<Time> time;
 
 

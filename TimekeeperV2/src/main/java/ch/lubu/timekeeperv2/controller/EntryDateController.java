@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
 import java.text.ParseException;
 
 /**
@@ -62,6 +63,7 @@ public class EntryDateController {
             throw new DateCouldNotBeSavedException(t);
         }
         //if date already exists return "date already exists"
+
     }
 
     // update entryDate by id
@@ -79,6 +81,12 @@ public class EntryDateController {
     public HttpStatus deleteDate(@PathVariable int id) {
         entryDateRepository.deleteById(id);
         return HttpStatus.OK;
+    }
+
+    // show sum of amount by day - amount in form of hh:mm:ss
+    @GetMapping(path = "/{year}/{month}/sum")
+    public Iterable<Time> getSumByMonth(@PathVariable Integer year, @PathVariable Integer month) {
+        return entryDateRepository.findSumByMonth(year, month);
     }
 
 }

@@ -29,5 +29,4 @@ public interface TimeRepository extends JpaRepository<Time, Integer> {
     // shows all category, amount by day
     @Query("SELECT t.category, SEC_TO_TIME(SUM(TIME_TO_SEC(t.amount))) FROM Time t WHERE YEAR(t.entryDate.date) = ?1 AND MONTH(t.entryDate.date) = ?2 AND DAY(t.entryDate.date) = ?3 GROUP BY t.category")
     Iterable<Object[]> findSumByDayGroupByCategory(Integer year, Integer month, Integer day);
-
 }

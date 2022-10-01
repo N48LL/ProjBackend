@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 public class CategoryDto implements Serializable {
     private Integer id;
+    private String name;
 
     public CategoryDto() {
     }
@@ -23,6 +24,15 @@ public class CategoryDto implements Serializable {
 
     public CategoryDto setId(Integer id) {
         this.id = id;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public CategoryDto setName(String name) {
+        this.name = name;
         return this;
     }
 

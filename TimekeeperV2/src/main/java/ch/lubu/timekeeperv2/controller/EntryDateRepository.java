@@ -1,6 +1,7 @@
 package ch.lubu.timekeeperv2.controller;
 
 import ch.lubu.timekeeperv2.model.EntryDate;
+import ch.lubu.timekeeperv2.model.Time;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -25,5 +26,8 @@ public interface EntryDateRepository extends JpaRepository<EntryDate, Integer> {
         @Query("SELECT DISTINCT YEAR(d.date) FROM EntryDate d")
         Iterable<Integer> findDistrictYears();
 
+        // shows sum of amount by day for each day in month - amount in form of hh:mm:ss
+        @Query("SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(t.amount))) FROM Time t JOIN t.entryDate d WHERE YEAR(d.date) = ?1 AND MONTH(d.date) = ?2 GROUP BY d.date")
+        Iterable<java.sql.Time> findSumByMonth(Integer year, Integer month);
 
 }

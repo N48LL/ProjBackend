@@ -1,8 +1,11 @@
 package ch.lubu.timekeeperv2.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+
 /**
  * This class is the entity for the Time table in the database.
  * @author Lukas Bühler
@@ -22,7 +25,6 @@ public class Time {
 
     @Column(name = "amount", nullable = false)
     private java.sql.Time amount;
-
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "entry_date_id", nullable = false)

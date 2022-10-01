@@ -41,8 +41,6 @@ public class EntryDate {
         this.time = time;
     }
 
-
-
     public String getComment() {
         return comment;
     }
