@@ -3,13 +3,15 @@ package ch.lubu.timekeeperv2.controller;
 import ch.lubu.timekeeperv2.Dto.TimeDto;
 import ch.lubu.timekeeperv2.exception.TimeCouldNotBeSavedException;
 import ch.lubu.timekeeperv2.model.EntryDate;
+import ch.lubu.timekeeperv2.model.Time;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * This class is the controller for the time entity including FK category.
+ * This class is the controller for the {@link Time} entity.
  * @author Lukas Bühler
+ * @see TimeRepository
  */
 @RestController
 @CrossOrigin
@@ -47,7 +49,16 @@ public class TimeController {
         return timeRepository.findByDay(year, month, day);
     }
 
-    // create new time from TimeDto.java and find category by id
+    /**
+     * This method adds a new time entry to a date with amount and category.
+     * @link TimeRepository.java -> findById
+     * @param category, amount, entryDate
+     * @return List of Time
+     * @throws TimeCouldNotBeSavedException
+     * @link TimeRepository.java -> save
+     * @link CategoryRepository.java -> findById
+     * @link EntryDateRepository.java -> findById
+     */
     @PostMapping(path = "/add")
     public ch.lubu.timekeeperv2.model.Time saveTime(@RequestBody TimeDto newTime) {
         ch.lubu.timekeeperv2.model.Time time = new ch.lubu.timekeeperv2.model.Time();

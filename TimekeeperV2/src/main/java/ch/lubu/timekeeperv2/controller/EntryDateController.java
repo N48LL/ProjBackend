@@ -15,8 +15,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * This class is the controller for the date entity.
+ * This class is the controller for the {@link EntryDate} entity.
  * @author Lukas Bühler
+ * @see EntryDateRepository
  */
 
 @RestController
@@ -27,7 +28,11 @@ public class EntryDateController {
     @Autowired
     private EntryDateRepository entryDateRepository;
 
-    // Show ALL dates
+    /**
+     * This method shows everything
+     * @return Iterable of all dates
+     * @link EntryDateRepository.java -> findAll
+     */
     @GetMapping(path = "/all")
     public Iterable<EntryDate> getAllDates() {
         return entryDateRepository.findAll();
@@ -38,29 +43,51 @@ public class EntryDateController {
     public Iterable<EntryDate> getDatesByYear(@PathVariable Integer year) {
         return entryDateRepository.findByYear(year);
     }
-    // show all by year + month
-    @GetMapping(path = "/{year}/{month}")
-    public Iterable<EntryDate> getDatesByMonth(@PathVariable Integer year, @PathVariable Integer month) {
-        return entryDateRepository.findByMonth(year, month);
-    }
     // show single day by year + month + day
     @GetMapping(path = "/{year}/{month}/{day}")
     public EntryDate getDatesByDay(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
         return entryDateRepository.findByDay(year, month, day);
     }
-    // show all years district
+
+    /**
+     * This method fetches all days from a given month and year.
+     * @link EntryDateRepository.java -> findByMonth
+     * @param year
+     * @param month
+     * @return List of EntryDate
+     */
+    @GetMapping(path = "/{year}/{month}")
+    public Iterable<EntryDate> getDatesByMonth(@PathVariable Integer year, @PathVariable Integer month) {
+        return entryDateRepository.findByMonth(year, month);
+    }
+
+    /**
+     * This method fetch all Data by year and returns a list of all avalable years.
+     * @link EntryDateRepository.java -> findDistriktYears()
+     * @return List of all available years
+     */
     @GetMapping(path = "/years")
     public Iterable<Integer> getYears() {
         return entryDateRepository.findDistrictYears();
     }
 
-    // show all months by year district
+    /**
+     * This method is used to fetch a list of months by year.
+     * @link EntryDateRepository.java -> findByMonth
+     * @return List of months
+     * @param year, month
+     */
     @GetMapping(path = "/{year}/months")
     public Iterable<Integer> getMonthsByYear(@PathVariable Integer year) {
         return entryDateRepository.findDistrictMonths(year);
     }
 
-   // create new entryDate
+    /**
+     * This method is used to add a new date with comment.
+     * @param Year, Month, Day, Comment
+     * @link EntryDateRepository.java -> save
+     * @throws ParseException
+     */
     @PostMapping(path = "/add")
     public EntryDate saveDate(@RequestBody EntryDateDto Dto) throws ParseException {
         EntryDate t = new EntryDate();
@@ -84,14 +111,24 @@ public class EntryDateController {
         return entryDateRepository.save(entryDateToUpdate);
     }
 
-    // delete entryDate
+    /**
+     * This method deletes a date by id.
+     * @param id
+     * @return HttpStatus
+     * @link EntryDateRepository.java
+     */
     @DeleteMapping(path = "/delete/{id}")
     public HttpStatus deleteDate(@PathVariable int id) {
         entryDateRepository.deleteById(id);
         return HttpStatus.OK;
     }
 
-    // show sum of amount by day - amount in form of hh:mm:ss
+    /**
+     * This method is used to fetch the sum of all times by day.
+     * @link EntryDateRepository.java -> findSumByMonth
+     * @param year, month, day
+     * @return sum of all times by day in form of hh:mm:ss
+     */
     @GetMapping(path = "/{year}/{month}/sum")
     public Iterable<Time> getSumByMonth(@PathVariable Integer year, @PathVariable Integer month) {
         return entryDateRepository.findSumByMonth(year, month);

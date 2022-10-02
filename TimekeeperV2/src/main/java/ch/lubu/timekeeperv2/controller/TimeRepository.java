@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 /**
+ * This is the repository for the {@link Time} entity.
  * @author Lukas Bühler
- * @version 2.0
  */
 public interface TimeRepository extends JpaRepository<Time, Integer> {
 

@@ -9,6 +9,7 @@ import java.util.Optional;
  * This class is the entity for the Time table in the database.
  * @author Lukas Bühler
  * @version 2.0
+ * @link TimeDTO, TimeRepository, TimeController
  */
 @Entity
 @Table(name = "time")

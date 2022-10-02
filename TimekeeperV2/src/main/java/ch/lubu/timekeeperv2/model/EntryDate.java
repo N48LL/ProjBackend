@@ -9,9 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * This class is the entity for the category table in the database.
+ * This class is the entity for the Date table in the database.
  * @author Lukas Bühler
  * @version 2.0
+ * @link EntryDateDTO, EntryDateRepository, EntryDateController
  */
 
 @Entity
@@ -49,6 +50,15 @@ public class EntryDate {
     public java.util.Date getDate() {
         return date;
     }
+
+    /**
+     * This method sets the date of the entry by parsing a string to a date.
+     * @param year
+     * @param month
+     * @param day
+     * @return java.util.Date
+     * @throws ParseException
+     */
     public void setDate(String year, String month, String day) throws ParseException {
         String dateString = day+"."+month+"."+year;
         this.date = new SimpleDateFormat("dd.MM.yyyy").parse(dateString);
