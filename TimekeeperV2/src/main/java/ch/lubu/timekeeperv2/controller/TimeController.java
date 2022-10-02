@@ -65,6 +65,23 @@ public class TimeController {
             throw new TimeCouldNotBeSavedException(time);
         }
     }
+    // create new time from TimeDto.java and find catgegory by name set category by id
+    @PostMapping(path = "/add/{categoryName}")
+    public ch.lubu.timekeeperv2.model.Time saveTime(@RequestBody TimeDto newTime, @PathVariable String categoryName) {
+        ch.lubu.timekeeperv2.model.Time time = new ch.lubu.timekeeperv2.model.Time();
+        ch.lubu.timekeeperv2.model.Category category = categoryRepository.findByName(categoryName);
+        EntryDate entryDate = entryDateRepository.findById(newTime.getEntryDate().getId()).get();
+
+        time.setEntryDate(entryDate);
+        time.setCategory(category.get());
+        time.setAmount(newTime.getAmount());
+
+        try {
+            return timeRepository.save(time);
+        } catch (Exception ex) {
+            throw new TimeCouldNotBeSavedException(time);
+        }
+    }
 
     // show sum of amount by day - amount in form of hh:mm:ss
     @GetMapping(path = "/{year}/{month}/{day}/sum")

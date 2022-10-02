@@ -108,8 +108,6 @@ public class EntryDateController {
         Date tempDate = new SimpleDateFormat("dd.MM.yyyy").parse(dateString);
         Optional<Integer> existingDate = entryDateRepository.findIdByDate(tempDate);
         return existingDate.orElseGet(() -> entryDateRepository.save(t).getId());
-
-
     }
 
 }

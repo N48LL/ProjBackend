@@ -32,4 +32,8 @@ public class Category {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Category get() {
+        return this;
+    }
 }

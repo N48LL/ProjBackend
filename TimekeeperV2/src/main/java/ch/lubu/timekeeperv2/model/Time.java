@@ -1,10 +1,9 @@
 package ch.lubu.timekeeperv2.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
-import javax.validation.Valid;
+import java.util.Optional;
 
 /**
  * This class is the entity for the Time table in the database.
@@ -54,6 +53,7 @@ public class Time {
     public void setCategory(Category category) {
         this.category = category;
     }
+
 
     public Integer getId() {
         return id;

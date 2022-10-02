@@ -32,7 +32,7 @@ public interface EntryDateRepository extends JpaRepository<EntryDate, Integer> {
         @Query("SELECT DISTINCT MONTH(d.date) FROM EntryDate d WHERE YEAR(d.date) = ?1")
         Iterable<Integer> findDistrictMonths(Integer year);
 
-        // shows sum of amount by day for each day in month - amount in form of hh:mm:ss
+        // shows sum of amount by day for each day in month
         @Query("SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(t.amount))) FROM Time t JOIN t.entryDate d WHERE YEAR(d.date) = ?1 AND MONTH(d.date) = ?2 GROUP BY d.date")
         Iterable<java.sql.Time> findSumByMonth(Integer year, Integer month);
 
