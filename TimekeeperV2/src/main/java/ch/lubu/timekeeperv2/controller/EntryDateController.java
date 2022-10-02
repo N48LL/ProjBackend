@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * This class is the controller for the date entity.
@@ -50,6 +54,12 @@ public class EntryDateController {
         return entryDateRepository.findDistrictYears();
     }
 
+    // show all months by year district
+    @GetMapping(path = "/{year}/months")
+    public Iterable<Integer> getMonthsByYear(@PathVariable Integer year) {
+        return entryDateRepository.findDistrictMonths(year);
+    }
+
    // create new entryDate
     @PostMapping(path = "/add")
     public EntryDate saveDate(@RequestBody EntryDateDto Dto) throws ParseException {
@@ -63,9 +73,7 @@ public class EntryDateController {
             throw new DateCouldNotBeSavedException(t);
         }
         //if date already exists return "date already exists"
-
     }
-
     // update entryDate by id
     @PutMapping(path = "/update/{id}")
     public EntryDate updateDate(@PathVariable Integer id, @RequestBody EntryDateDto entryDate) throws ParseException {
@@ -87,6 +95,21 @@ public class EntryDateController {
     @GetMapping(path = "/{year}/{month}/sum")
     public Iterable<Time> getSumByMonth(@PathVariable Integer year, @PathVariable Integer month) {
         return entryDateRepository.findSumByMonth(year, month);
+    }
+
+    // create new date by year + month + day + comment. If date already exists return id of existing date
+    @PostMapping(path = "/addnew")
+    public Integer saveNewDate(@RequestBody EntryDateDto Dto) throws ParseException {
+        EntryDate t = new EntryDate();
+
+        t.setDate(Dto.getYear(), Dto.getMonth(), Dto.getDay());
+        t.setComment(Dto.getComment());
+        String dateString = Dto.getYear() + "." + Dto.getMonth() + "." + Dto.getDay();
+        Date tempDate = new SimpleDateFormat("dd.MM.yyyy").parse(dateString);
+        Optional<Integer> existingDate = entryDateRepository.findIdByDate(tempDate);
+        return existingDate.orElseGet(() -> entryDateRepository.save(t).getId());
+
+
     }
 
 }

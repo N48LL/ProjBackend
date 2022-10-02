@@ -29,9 +29,6 @@ public class EntryDate {
     @Column(name = "comment")
     private String comment;
 
-    //@OneToMany
-    //private Iterable<Time> times;
-    // hidden fk?
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "entryDate")
     private List<Time> time;
     public List<Time> getTimes() {
