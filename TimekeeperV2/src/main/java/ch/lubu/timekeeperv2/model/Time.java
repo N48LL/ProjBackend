@@ -10,7 +10,9 @@ import java.util.Optional;
  * @author Lukas Bühler
  * @version 2.0
  * @link TimeDTO, TimeRepository, TimeController
+ *
  */
+
 @Entity
 @Table(name = "time")
 public class Time {

@@ -2,16 +2,18 @@ package ch.lubu.timekeeperv2.controller;
 
 import ch.lubu.timekeeperv2.Dto.EntryDateDto;
 import ch.lubu.timekeeperv2.exception.DateCouldNotBeSavedException;
+import ch.lubu.timekeeperv2.exception.EntryDateLoadException;
+import ch.lubu.timekeeperv2.exception.EntryDateNotFoundException;
 import ch.lubu.timekeeperv2.model.EntryDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,16 +36,24 @@ public class EntryDateController {
      * @link EntryDateRepository.java -> findAll
      */
     @GetMapping(path = "/all")
-    public Iterable<EntryDate> getAllDates() {
-        return entryDateRepository.findAll();
+    public ResponseEntity<Iterable<EntryDate>> getAllDates() {
+        Iterable<EntryDate> dates = null;
+        try {
+            dates = entryDateRepository.findAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok(dates);
     }
 
     // show all by year
+    // todo: delete?
     @GetMapping(path = "/{year}")
     public Iterable<EntryDate> getDatesByYear(@PathVariable Integer year) {
         return entryDateRepository.findByYear(year);
     }
     // show single day by year + month + day
+    // todo: delete ?
     @GetMapping(path = "/{year}/{month}/{day}")
     public EntryDate getDatesByDay(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
         return entryDateRepository.findByDay(year, month, day);
@@ -55,20 +65,35 @@ public class EntryDateController {
      * @param year
      * @param month
      * @return List of EntryDate
+     * @throws EntryDateLoadException
      */
     @GetMapping(path = "/{year}/{month}")
     public Iterable<EntryDate> getDatesByMonth(@PathVariable Integer year, @PathVariable Integer month) {
-        return entryDateRepository.findByMonth(year, month);
+        if (month > 12 || month < 1 || year < 1900 || year > 2999) {
+            throw new EntryDateNotFoundException(year, month);
+        }
+        try {
+            return entryDateRepository.findByMonth(year, month);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new EntryDateNotFoundException(year, month);
+        }
     }
 
     /**
      * This method fetch all Data by year and returns a list of all avalable years.
      * @link EntryDateRepository.java -> findDistriktYears()
      * @return List of all available years
+     * @throws EntryDateNotFoundException
      */
     @GetMapping(path = "/years")
     public Iterable<Integer> getYears() {
-        return entryDateRepository.findDistrictYears();
+        try {
+            return entryDateRepository.findDistrictYears();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new EntryDateLoadException();
+        }
     }
 
     /**
@@ -76,10 +101,19 @@ public class EntryDateController {
      * @link EntryDateRepository.java -> findByMonth
      * @return List of months
      * @param year, month
+     * @throws EntryDateNotFoundException
      */
     @GetMapping(path = "/{year}/months")
     public Iterable<Integer> getMonthsByYear(@PathVariable Integer year) {
-        return entryDateRepository.findDistrictMonths(year);
+        if (year < 1900 || year > 2999) {
+            throw new EntryDateNotFoundException(year);
+        }
+        try {
+            return entryDateRepository.findDistrictMonths(year);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new EntryDateLoadException();
+        }
     }
 
     /**
@@ -95,20 +129,33 @@ public class EntryDateController {
         t.setDate(Dto.getYear(), Dto.getMonth(), Dto.getDay());
         t.setComment(Dto.getComment());
         try {
-            return entryDateRepository.save(t);
+            entryDateRepository.save(t);
         } catch (Exception ex) {
             throw new DateCouldNotBeSavedException(t);
         }
-        //if date already exists return "date already exists"
+        return t;
     }
-    // update entryDate by id
+
+    /**
+     * This method is used to update a date with comment.
+     * @param id
+     * @param entryDate
+     * @link EntryDateRepository.java
+     * @throws ParseException
+     * @throws DateCouldNotBeSavedException
+     */
     @PutMapping(path = "/update/{id}")
     public EntryDate updateDate(@PathVariable Integer id, @RequestBody EntryDateDto entryDate) throws ParseException {
         EntryDate entryDateToUpdate = entryDateRepository.findById(id).get();
 
-        entryDateToUpdate.setDate(entryDate.getYear(), entryDate.getMonth(), entryDate.getDay());
-        entryDateToUpdate.setComment(entryDate.getComment());
-        return entryDateRepository.save(entryDateToUpdate);
+        try {
+            entryDateToUpdate.setDate(entryDate.getYear(), entryDate.getMonth(), entryDate.getDay());
+            entryDateToUpdate.setComment(entryDate.getComment());
+            entryDateRepository.save(entryDateToUpdate);
+        } catch (Exception ex) {
+            throw new DateCouldNotBeSavedException(entryDateToUpdate);
+        }
+        return entryDateToUpdate;
     }
 
     /**
@@ -119,8 +166,13 @@ public class EntryDateController {
      */
     @DeleteMapping(path = "/delete/{id}")
     public HttpStatus deleteDate(@PathVariable int id) {
-        entryDateRepository.deleteById(id);
-        return HttpStatus.OK;
+        try {
+            entryDateRepository.deleteById(id);
+            return HttpStatus.ACCEPTED;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 
     /**
@@ -128,13 +180,23 @@ public class EntryDateController {
      * @link EntryDateRepository.java -> findSumByMonth
      * @param year, month, day
      * @return sum of all times by day in form of hh:mm:ss
+     * @throws EntryDateNotFoundException
      */
     @GetMapping(path = "/{year}/{month}/sum")
     public Iterable<Time> getSumByMonth(@PathVariable Integer year, @PathVariable Integer month) {
-        return entryDateRepository.findSumByMonth(year, month);
+        if (month > 12 || month < 1 || year < 1900 || year > 2999) {
+            throw new EntryDateNotFoundException(year, month);
+        }
+        try {
+            return entryDateRepository.findSumByMonth(year, month);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new EntryDateNotFoundException(year, month);
+        }
     }
 
     // create new date by year + month + day + comment. If date already exists return id of existing date
+    // todo: delete?
     @PostMapping(path = "/addnew")
     public Integer saveNewDate(@RequestBody EntryDateDto Dto) throws ParseException {
         EntryDate t = new EntryDate();

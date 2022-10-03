@@ -127,7 +127,12 @@ public class TimeController {
     // delete Time entry by time id
     @DeleteMapping(path = "/delete/{id}")
     public HttpStatus deleteTime(@PathVariable int id) {
-        this.timeRepository.deleteById(id);
-        return HttpStatus.OK;
+        try {
+            timeRepository.deleteById(id);
+            return HttpStatus.ACCEPTED;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 }

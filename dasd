@@ -1,0 +1,126 @@
+ TimekeeperV2/.idea/.gitignore                      |   3 [32m+[m
+ TimekeeperV2/.idea/compiler.xml                    |  21 [32m+[m
+ TimekeeperV2/.idea/encodings.xml                   |   6 [32m+[m
+ TimekeeperV2/.idea/intellij-javadocs-4.0.1.xml     | 204 [32m+++++++[m
+ TimekeeperV2/.idea/jarRepositories.xml             |  20 [32m+[m
+ TimekeeperV2/.idea/jpa-buddy.xml                   |   9 [32m+[m
+ .../.idea/libraries/Maven__antlr_antlr_2_7_7.xml   |  13 [32m+[m
+ ...aven__ch_qos_logback_logback_classic_1_2_11.xml |  13 [32m+[m
+ .../Maven__ch_qos_logback_logback_core_1_2_11.xml  |  13 [32m+[m
+ .../Maven__com_fasterxml_classmate_1_5_1.xml       |  13 [32m+[m
+ ...xml_jackson_core_jackson_annotations_2_13_3.xml |  13 [32m+[m
+ ..._fasterxml_jackson_core_jackson_core_2_13_3.xml |  13 [32m+[m
+ ...terxml_jackson_core_jackson_databind_2_13_3.xml |  13 [32m+[m
+ ...ckson_datatype_jackson_datatype_jdk8_2_13_3.xml |  13 [32m+[m
+ ...son_datatype_jackson_datatype_jsr310_2_13_3.xml |  13 [32m+[m
+ ...odule_jackson_module_parameter_names_2_13_3.xml |  13 [32m+[m
+ .../Maven__com_jayway_jsonpath_json_path_2_7_0.xml |  13 [32m+[m
+ ...com_sun_activation_jakarta_activation_1_2_2.xml |  13 [32m+[m
+ ...om_sun_istack_istack_commons_runtime_3_0_12.xml |  13 [32m+[m
+ ...al_google_android_json_0_0_20131108_vaadin1.xml |  13 [32m+[m
+ .../libraries/Maven__com_zaxxer_HikariCP_4_0_3.xml |  13 [32m+[m
+ ...rta_activation_jakarta_activation_api_1_2_2.xml |  13 [32m+[m
+ ...rta_annotation_jakarta_annotation_api_1_3_5.xml |  13 [32m+[m
+ ...a_persistence_jakarta_persistence_api_2_2_3.xml |  13 [32m+[m
+ ...a_transaction_jakarta_transaction_api_1_3_3.xml |  13 [32m+[m
+ ...rta_validation_jakarta_validation_api_2_0_2.xml |  13 [32m+[m
+ ...jakarta_xml_bind_jakarta_xml_bind_api_2_3_3.xml |  13 [32m+[m
+ .../Maven__mysql_mysql_connector_java_8_0_30.xml   |  13 [32m+[m
+ .../Maven__net_bytebuddy_byte_buddy_1_12_13.xml    |  13 [32m+[m
+ ...ven__net_bytebuddy_byte_buddy_agent_1_12_13.xml |  13 [32m+[m
+ .../Maven__net_minidev_accessors_smart_2_4_8.xml   |  13 [32m+[m
+ .../Maven__net_minidev_json_smart_2_4_8.xml        |  13 [32m+[m
+ ...__org_apache_logging_log4j_log4j_api_2_17_2.xml |  13 [32m+[m
+ ..._apache_logging_log4j_log4j_to_slf4j_2_17_2.xml |  13 [32m+[m
+ ...pache_tomcat_embed_tomcat_embed_core_9_0_65.xml |  13 [32m+[m
+ ..._apache_tomcat_embed_tomcat_embed_el_9_0_65.xml |  13 [32m+[m
+ ..._tomcat_embed_tomcat_embed_websocket_9_0_65.xml |  13 [32m+[m
+ ...aven__org_apiguardian_apiguardian_api_1_1_2.xml |  13 [32m+[m
+ .../Maven__org_aspectj_aspectjweaver_1_9_7.xml     |  13 [32m+[m
+ .../Maven__org_assertj_assertj_core_3_22_0.xml     |  13 [32m+[m
+ ...aven__org_glassfish_jaxb_jaxb_runtime_2_3_6.xml |  13 [32m+[m
+ .../Maven__org_glassfish_jaxb_txw2_2_3_6.xml       |  13 [32m+[m
+ .../libraries/Maven__org_hamcrest_hamcrest_2_2.xml |  13 [32m+[m
+ ...n_hibernate_commons_annotations_5_1_2_Final.xml |  13 [32m+[m
+ ...__org_hibernate_hibernate_core_5_6_10_Final.xml |  13 [32m+[m
+ ...e_validator_hibernate_validator_6_2_4_Final.xml |  13 [32m+[m
+ .../Maven__org_jboss_jandex_2_4_2_Final.xml        |  13 [32m+[m
+ ...org_jboss_logging_jboss_logging_3_4_3_Final.xml |  13 [32m+[m
+ ...aven__org_junit_jupiter_junit_jupiter_5_8_2.xml |  13 [32m+[m
+ ...__org_junit_jupiter_junit_jupiter_api_5_8_2.xml |  13 [32m+[m
+ ...rg_junit_jupiter_junit_jupiter_engine_5_8_2.xml |  13 [32m+[m
+ ...rg_junit_jupiter_junit_jupiter_params_5_8_2.xml |  13 [32m+[m
+ ...junit_platform_junit_platform_commons_1_8_2.xml |  13 [32m+[m
+ ..._junit_platform_junit_platform_engine_1_8_2.xml |  13 [32m+[m
+ .../Maven__org_mockito_mockito_core_4_5_1.xml      |  13 [32m+[m
+ ...en__org_mockito_mockito_junit_jupiter_4_5_1.xml |  13 [32m+[m
+ .../Maven__org_objenesis_objenesis_3_2.xml         |  13 [32m+[m
+ .../Maven__org_opentest4j_opentest4j_1_2_0.xml     |  13 [32m+[m
+ .../.idea/libraries/Maven__org_ow2_asm_asm_9_1.xml |  13 [32m+[m
+ .../Maven__org_skyscreamer_jsonassert_1_5_1.xml    |  13 [32m+[m
+ .../Maven__org_slf4j_jul_to_slf4j_1_7_36.xml       |  13 [32m+[m
+ .../Maven__org_slf4j_slf4j_api_1_7_36.xml          |  13 [32m+[m
+ ..._org_springframework_boot_spring_boot_2_7_3.xml |  13 [32m+[m
+ ...mework_boot_spring_boot_autoconfigure_2_7_3.xml |  13 [32m+[m
+ ...ingframework_boot_spring_boot_starter_2_7_3.xml |  13 [32m+[m
+ ...ramework_boot_spring_boot_starter_aop_2_7_3.xml |  13 [32m+[m
+ ...ork_boot_spring_boot_starter_data_jpa_2_7_3.xml |  13 [32m+[m
+ ...amework_boot_spring_boot_starter_jdbc_2_7_3.xml |  13 [32m+[m
+ ...amework_boot_spring_boot_starter_json_2_7_3.xml |  13 [32m+[m
+ ...work_boot_spring_boot_starter_logging_2_7_3.xml |  13 [32m+[m
+ ...amework_boot_spring_boot_starter_test_2_7_3.xml |  13 [32m+[m
+ ...ework_boot_spring_boot_starter_tomcat_2_7_3.xml |  13 [32m+[m
+ ...k_boot_spring_boot_starter_validation_2_7_3.xml |  13 [32m+[m
+ ...ramework_boot_spring_boot_starter_web_2_7_3.xml |  13 [32m+[m
+ ...springframework_boot_spring_boot_test_2_7_3.xml |  13 [32m+[m
+ ...k_boot_spring_boot_test_autoconfigure_2_7_3.xml |  13 [32m+[m
+ ...ingframework_data_spring_data_commons_2_7_2.xml |  13 [32m+[m
+ ..._springframework_data_spring_data_jpa_2_7_2.xml |  13 [32m+[m
+ ...aven__org_springframework_spring_aop_5_3_22.xml |  13 [32m+[m
+ ...__org_springframework_spring_aspects_5_3_22.xml |  13 [32m+[m
+ ...en__org_springframework_spring_beans_5_3_22.xml |  13 [32m+[m
+ ...__org_springframework_spring_context_5_3_22.xml |  13 [32m+[m
+ ...ven__org_springframework_spring_core_5_3_22.xml |  13 [32m+[m
+ ...rg_springframework_spring_expression_5_3_22.xml |  13 [32m+[m
+ ...aven__org_springframework_spring_jcl_5_3_22.xml |  13 [32m+[m
+ ...ven__org_springframework_spring_jdbc_5_3_22.xml |  13 [32m+[m
+ ...aven__org_springframework_spring_orm_5_3_22.xml |  13 [32m+[m
+ ...ven__org_springframework_spring_test_5_3_22.xml |  13 [32m+[m
+ ...Maven__org_springframework_spring_tx_5_3_22.xml |  13 [32m+[m
+ ...aven__org_springframework_spring_web_5_3_22.xml |  13 [32m+[m
+ ...n__org_springframework_spring_webmvc_5_3_22.xml |  13 [32m+[m
+ .../Maven__org_xmlunit_xmlunit_core_2_9_0.xml      |  13 [32m+[m
+ .../libraries/Maven__org_yaml_snakeyaml_1_30.xml   |  13 [32m+[m
+ TimekeeperV2/.idea/misc.xml                        |  16 [32m+[m
+ TimekeeperV2/.idea/modules.xml                     |   8 [32m+[m
+ TimekeeperV2/.idea/uiDesigner.xml                  | 124 [32m++++[m
+ TimekeeperV2/.idea/vcs.xml                         |   6 [32m+[m
+ TimekeeperV2/HELP.md                               |  24 [32m+[m
+ TimekeeperV2/TimekeeperV2.iml                      | 102 [32m++++[m
+ TimekeeperV2/target/classes/application.properties |   9 [32m+[m
+ .../ch/lubu/timekeeperv2/Dto/CategoryDto.class     | Bin [31m0[m -> [32m1074[m bytes
+ .../ch/lubu/timekeeperv2/Dto/EntryDateDto.class    | Bin [31m0[m -> [32m2726[m bytes
+ .../classes/ch/lubu/timekeeperv2/Dto/TimeDto.class | Bin [31m0[m -> [32m2368[m bytes
+ .../timekeeperv2/TimekeeperV2Application.class     | Bin [31m0[m -> [32m1022[m bytes
+ .../controller/CategoryController.class            | Bin [31m0[m -> [32m1716[m bytes
+ .../controller/CategoryRepository.class            | Bin [31m0[m -> [32m634[m bytes
+ .../controller/EntryDateController.class           | Bin [31m0[m -> [32m8022[m bytes
+ .../controller/EntryDateRepository.class           | Bin [31m0[m -> [32m2166[m bytes
+ .../timekeeperv2/controller/TimeController.class   | Bin [31m0[m -> [32m6769[m bytes
+ .../timekeeperv2/controller/TimeRepository.class   | Bin [31m0[m -> [32m2083[m bytes
+ .../exception/CategoryLoadException.class          | Bin [31m0[m -> [32m427[m bytes
+ .../exception/DateCouldNotBeSavedException.class   | Bin [31m0[m -> [32m1042[m bytes
+ .../exception/EntryDateLoadException.class         | Bin [31m0[m -> [32m430[m bytes
+ .../exception/EntryDateNotFoundException.class     | Bin [31m0[m -> [32m968[m bytes
+ .../exception/TimeCouldNotBeSavedException.class   | Bin [31m0[m -> [32m1022[m bytes
+ .../ch/lubu/timekeeperv2/model/Category.class      | Bin [31m0[m -> [32m1316[m bytes
+ .../ch/lubu/timekeeperv2/model/EntryDate.class     | Bin [31m0[m -> [32m3152[m bytes
+ .../classes/ch/lubu/timekeeperv2/model/Time.class  | Bin [31m0[m -> [32m2126[m bytes
+ .../compile/default-compile/createdFiles.lst       |  18 [32m+[m
+ .../compile/default-compile/inputFiles.lst         |  16 [32m+[m
+ .../default-testCompile/createdFiles.lst           |   1 [32m+[m
+ .../testCompile/default-testCompile/inputFiles.lst |   1 [32m+[m
+ ...u.timekeeperv2.TimekeeperV2ApplicationTests.xml | 649 [32m+++++++++++++++++++++[m
+ ...u.timekeeperv2.TimekeeperV2ApplicationTests.txt |  10 [32m+[m
+ .../TimekeeperV2ApplicationTests.class             | Bin [31m0[m -> [32m563[m bytes
+ 125 files changed, 2378 insertions(+)
