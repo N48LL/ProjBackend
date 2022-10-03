@@ -1,6 +1,7 @@
 package ch.lubu.timekeeperv2.Dto;
 
 import ch.lubu.timekeeperv2.model.Category;
+import javax.validation.constraints.NotEmpty;
 
 import java.io.Serializable;
 
