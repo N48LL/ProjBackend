@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * This class is the controller for the {@link Time} entity.
  * @author Lukas Bühler
  * @see TimeRepository
+ * @see Validation: {@link ch.lubu.timekeeperv2.Dto.TimeDto}
  */
 @RestController
 @CrossOrigin
@@ -60,25 +63,26 @@ public class TimeController {
      * @link EntryDateRepository.java -> findById
      */
     @PostMapping(path = "/add")
-    public ch.lubu.timekeeperv2.model.Time saveTime(@RequestBody TimeDto newTime) {
+    public ch.lubu.timekeeperv2.model.Time saveTime(@Valid @RequestBody TimeDto Dto) throws TimeCouldNotBeSavedException {
         ch.lubu.timekeeperv2.model.Time time = new ch.lubu.timekeeperv2.model.Time();
-        ch.lubu.timekeeperv2.model.Category category = categoryRepository.findById(newTime.getCategory().getId()).get();
-        EntryDate entryDate = entryDateRepository.findById(newTime.getEntryDate().getId()).get();
+        ch.lubu.timekeeperv2.model.Category category = categoryRepository.findById(Dto.getCategory().getId()).get();
+        EntryDate entryDate = entryDateRepository.findById(Dto.getEntryDate().getId()).get();
 
         time.setEntryDate(entryDate);
         time.setCategory(category);
         //setAmount time to seconds
-        time.setAmount(newTime.getAmount());
+        time.setAmount(Dto.getAmount());
 
         try {
-            return timeRepository.save(time);
+            timeRepository.save(time);
         } catch (Exception ex) {
             throw new TimeCouldNotBeSavedException(time);
         }
+        return time;
     }
     // create new time from TimeDto.java and find catgegory by name set category by id
     @PostMapping(path = "/add/{categoryName}")
-    public ch.lubu.timekeeperv2.model.Time saveTime(@RequestBody TimeDto newTime, @PathVariable String categoryName) {
+    public ch.lubu.timekeeperv2.model.Time saveTime(@Valid @RequestBody TimeDto newTime, @PathVariable String categoryName) throws TimeCouldNotBeSavedException {
         ch.lubu.timekeeperv2.model.Time time = new ch.lubu.timekeeperv2.model.Time();
         ch.lubu.timekeeperv2.model.Category category = categoryRepository.findByName(categoryName);
         EntryDate entryDate = entryDateRepository.findById(newTime.getEntryDate().getId()).get();
@@ -109,7 +113,7 @@ public class TimeController {
 
     // update time by id
     @PutMapping(path = "/update/{id}")
-    public ch.lubu.timekeeperv2.model.Time updateTime(@PathVariable Integer id, @RequestBody TimeDto newTime) {
+    public ch.lubu.timekeeperv2.model.Time updateTime(@PathVariable Integer id, @Valid @RequestBody TimeDto newTime) throws TimeCouldNotBeSavedException {
         ch.lubu.timekeeperv2.model.Time time = timeRepository.findById(id).get();
         ch.lubu.timekeeperv2.model.Category category = categoryRepository.findById(newTime.getCategory().getId()).get();
         EntryDate entryDate = entryDateRepository.findById(newTime.getEntryDate().getId()).get();

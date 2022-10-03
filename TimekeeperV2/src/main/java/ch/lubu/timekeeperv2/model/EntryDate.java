@@ -1,11 +1,8 @@
 package ch.lubu.timekeeperv2.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,6 +10,7 @@ import java.util.List;
  * @author Lukas Bühler
  * @version 2.0
  * @link EntryDateDTO, EntryDateRepository, EntryDateController
+ * @see Validation: {@link EntryDate}
  */
 
 @Entity

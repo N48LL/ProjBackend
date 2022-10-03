@@ -12,4 +12,5 @@ public class DateCouldNotBeSavedException extends RuntimeException{
     public DateCouldNotBeSavedException(EntryDate entryDate) {
         super("The time " + entryDate + " could not be saved.");
     }
+
 }

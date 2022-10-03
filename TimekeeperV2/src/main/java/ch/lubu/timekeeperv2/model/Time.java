@@ -3,14 +3,15 @@ package ch.lubu.timekeeperv2.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import java.util.Optional;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 /**
  * This class is the entity for the Time table in the database.
  * @author Lukas Bühler
  * @version 2.0
  * @link TimeDTO, TimeRepository, TimeController
- *
+ * @see Validation: {@link ch.lubu.timekeeperv2.Dto.TimeDto}
  */
 
 @Entity
@@ -25,6 +26,8 @@ public class Time {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    @NotEmpty(message = "Es muss eine Zeit angegeben werden.")
+    @Pattern(regexp = "([0-1][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]", message = "Die Zeit muss im Format hh:mm:ss angegeben werden.")
     @Column(name = "amount", nullable = false)
     private java.sql.Time amount;
 
@@ -41,10 +44,10 @@ public class Time {
         this.entryDate = entryDate;
     }
 
+
     public java.sql.Time getAmount() {
         return amount;
     }
-
     public void setAmount(java.sql.Time amount) {
         this.amount = amount;
     }
@@ -52,7 +55,6 @@ public class Time {
     public Category getCategory() {
         return category;
     }
-
     public void setCategory(Category category) {
         this.category = category;
     }

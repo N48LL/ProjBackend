@@ -2,7 +2,13 @@ package ch.lubu.timekeeperv2.Dto;
 
 import ch.lubu.timekeeperv2.model.EntryDate;
 import ch.lubu.timekeeperv2.model.Time;
+import com.sun.xml.bind.v2.TODO;
+import org.hibernate.mapping.Value;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -22,10 +28,11 @@ public class TimeDto implements Serializable {
         this.time = time;
     }
 
+    // TODO: Contue from here
+    @NotNull(message = "Kategorie darf nicht leer sein.")
     public CategoryDto getCategory() {
         return category;
     }
-
     public TimeDto setCategory(CategoryDto category) {
         this.category = category;
         return this;
@@ -34,7 +41,6 @@ public class TimeDto implements Serializable {
     public java.sql.Time getAmount() {
         return amount;
     }
-
     public TimeDto setAmount(java.sql.Time amount) {
         this.amount = amount;
         return this;

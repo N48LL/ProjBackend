@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -105,7 +106,7 @@ public class EntryDateController {
      */
     @GetMapping(path = "/{year}/months")
     public Iterable<Integer> getMonthsByYear(@PathVariable Integer year) {
-        if (year < 1900 || year > 2999) {
+        if (year < 200 || year > 2100) {
             throw new EntryDateNotFoundException(year);
         }
         try {
@@ -123,7 +124,7 @@ public class EntryDateController {
      * @throws ParseException
      */
     @PostMapping(path = "/add")
-    public EntryDate saveDate(@RequestBody EntryDateDto Dto) throws ParseException {
+    public EntryDate saveDate(@Valid @RequestBody EntryDateDto Dto) throws ParseException {
         EntryDate t = new EntryDate();
 
         t.setDate(Dto.getYear(), Dto.getMonth(), Dto.getDay());
@@ -145,7 +146,7 @@ public class EntryDateController {
      * @throws DateCouldNotBeSavedException
      */
     @PutMapping(path = "/update/{id}")
-    public EntryDate updateDate(@PathVariable Integer id, @RequestBody EntryDateDto entryDate) throws ParseException {
+    public EntryDate updateDate(@PathVariable Integer id,@Valid @RequestBody EntryDateDto entryDate) throws ParseException {
         EntryDate entryDateToUpdate = entryDateRepository.findById(id).get();
 
         try {
@@ -198,7 +199,7 @@ public class EntryDateController {
     // create new date by year + month + day + comment. If date already exists return id of existing date
     // todo: delete?
     @PostMapping(path = "/addnew")
-    public Integer saveNewDate(@RequestBody EntryDateDto Dto) throws ParseException {
+    public Integer saveNewDate(@Valid @RequestBody EntryDateDto Dto) throws ParseException {
         EntryDate t = new EntryDate();
 
         t.setDate(Dto.getYear(), Dto.getMonth(), Dto.getDay());
