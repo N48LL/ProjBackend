@@ -45,6 +45,10 @@ public class EntryDateDto implements Serializable {
         this.id = id;
     }
 
+    public EntryDateDto() {
+
+    }
+
     public Integer getId() {
         return id;
     }
@@ -93,7 +97,5 @@ public class EntryDateDto implements Serializable {
         this.time = time;
         return this;
     }
-
-
 
 }
