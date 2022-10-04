@@ -1,22 +1,26 @@
 package ch.lubu.timekeeperv2.Dto;
 
-import ch.lubu.timekeeperv2.model.EntryDate;
 import ch.lubu.timekeeperv2.model.Time;
-import com.sun.xml.bind.v2.TODO;
-import org.hibernate.mapping.Value;
+import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
+
 
 /**
  * A DTO for the {@link Time} entity
  */
 public class TimeDto implements Serializable {
+    @NotNull(message = "Kategorie darf nicht leer sein.")
     private CategoryDto category;
+    @NotNull(message = "Es muss eine Zeit angegeben werden.")
+    @DateTimeFormat(pattern = "HH:mm:ss")
     private java.sql.Time amount;
+    @NotNull(message = "Datum konnte nicht gefunden werden. Erstellen Sie ein neues Datum.")
     private EntryDateDto entryDate;
     private Iterable<Time> time;
 
@@ -28,8 +32,9 @@ public class TimeDto implements Serializable {
         this.time = time;
     }
 
+
     // TODO: Contue from here
-    @NotNull(message = "Kategorie darf nicht leer sein.")
+
     public CategoryDto getCategory() {
         return category;
     }

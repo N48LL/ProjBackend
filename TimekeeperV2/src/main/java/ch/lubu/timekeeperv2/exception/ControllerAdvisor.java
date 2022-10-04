@@ -70,6 +70,11 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return createDefaultErrorResponse(ex.getMessage());
     }
 
+    @ExceptionHandler(TimeCatEntrydateDublicateException.class)
+    public ResponseEntity<Object> handleTimeCatEntrydateDublicateException(TimeCatEntrydateDublicateException ex, WebRequest request) {
+        return createDefaultErrorResponse(ex.getMessage());
+    }
+
     /**
      * Creates a default error response with the given message.
      *

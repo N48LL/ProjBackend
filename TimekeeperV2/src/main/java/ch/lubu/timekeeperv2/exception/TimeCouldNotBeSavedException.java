@@ -9,6 +9,6 @@ import ch.lubu.timekeeperv2.model.Time;
  */
 public class TimeCouldNotBeSavedException extends RuntimeException{
     public TimeCouldNotBeSavedException(Time time) {
-        super("The time " + time + " could not be saved.");
+        super("Der eintrag konnte nicht gespeichert werden.");
     }
 }

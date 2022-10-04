@@ -10,7 +10,7 @@ import java.util.List;
  * @author Lukas Bühler
  * @version 2.0
  * @link EntryDateDTO, EntryDateRepository, EntryDateController
- * @see Validation: {@link EntryDate}
+ * @see Validation: {@link ch.lubu.timekeeperv2.Dto.EntryDateDto}
  */
 
 @Entity

@@ -1,6 +1,7 @@
 package ch.lubu.timekeeperv2.controller;
 
 import ch.lubu.timekeeperv2.Dto.TimeDto;
+import ch.lubu.timekeeperv2.exception.TimeCatEntrydateDublicateException;
 import ch.lubu.timekeeperv2.exception.TimeCouldNotBeSavedException;
 import ch.lubu.timekeeperv2.model.EntryDate;
 import ch.lubu.timekeeperv2.model.Time;
@@ -57,7 +58,8 @@ public class TimeController {
      * @link TimeRepository.java -> findById
      * @param category, amount, entryDate
      * @return List of Time
-     * @throws TimeCouldNotBeSavedException
+     * @throws TimeCouldNotBeSavedException if the time could not be saved
+     * @throws TimeCatEntrydateDublicateException if the time, category or entrydate already exists
      * @link TimeRepository.java -> save
      * @link CategoryRepository.java -> findById
      * @link EntryDateRepository.java -> findById
@@ -72,13 +74,16 @@ public class TimeController {
         time.setCategory(category);
         //setAmount time to seconds
         time.setAmount(Dto.getAmount());
-
-        try {
-            timeRepository.save(time);
-        } catch (Exception ex) {
-            throw new TimeCouldNotBeSavedException(time);
+        // check if entryDate id and category id already exist together
+        if (timeRepository.findByEntryDateAndCategory(entryDate, category).isPresent()) {
+            throw new TimeCatEntrydateDublicateException();
         }
-        return time;
+            try {
+                timeRepository.save(time);
+            } catch (Exception ex) {
+                throw new TimeCouldNotBeSavedException(time);
+            }
+            return time;
     }
     // create new time from TimeDto.java and find catgegory by name set category by id
     @PostMapping(path = "/add/{categoryName}")
@@ -121,6 +126,7 @@ public class TimeController {
         time.setEntryDate(entryDate);
         time.setCategory(category);
         time.setAmount(newTime.getAmount());
+
         try {
             return timeRepository.save(time);
         } catch (Exception ex) {

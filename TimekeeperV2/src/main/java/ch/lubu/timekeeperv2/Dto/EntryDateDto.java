@@ -12,13 +12,23 @@ import java.util.List;
 
 /**
  * A DTO for the {@link EntryDate} entity
- *  @see Validation: {@link EntryDate}
  */
 public class EntryDateDto implements Serializable {
     private Integer id;
+    @Size(max = 4, min = 4, message = "Jahr muss 4-stellig sein.")
+    @Max(value = 2099, message = "Das jahr muss in diesem Jahrhundert liegen.")
+    @Min(value = 2000, message = "Das jahr muss in diesem Jahrhundert liegen.")
+    @NotEmpty(message = "Jahr darf nicht leer sein.")
     private String year;
+    @Min(value = 1, message = "Monat muss grösser als 0 sein.")
+    @Max(value = 12, message = "Monat darf nicht grösser als 12 sein.")
+    @NotEmpty(message = "Monat darf nicht leer sein.")
     private String month;
+    @Min(value = 1, message = "Tag muss grösser als 0 sein.")
+    @Max(value = 31, message = "Tag darf nicht grösser als 31 sein.")
+    @NotEmpty(message = "Tag darf nicht leer sein.")
     private String day;
+    @Size(max = 1024, message = "Kommentar darf nicht länger als 1024 Zeichen sein.")
     private String comment;
     private List<TimeDto> time = new ArrayList<>();
 
@@ -44,7 +54,6 @@ public class EntryDateDto implements Serializable {
         return this;
     }
 
-    @Size(max = 1024, message = "Kommentar darf nicht länger als 1024 Zeichen sein.")
     public String getComment() {
         return comment;
     }
@@ -53,10 +62,6 @@ public class EntryDateDto implements Serializable {
         return comment;
     }
 
-    @Size(max = 4, min = 4, message = "Jahr muss 4-stellig sein.")
-    @Max(value = 2099, message = "Das jahr muss in diesem Jahrhundert liegen.")
-    @Min(value = 2000, message = "Das jahr muss in diesem Jahrhundert liegen.")
-    @NotEmpty(message = "Jahr darf nicht leer sein.")
     public String getYear() {
         return year;
     }
@@ -64,9 +69,7 @@ public class EntryDateDto implements Serializable {
         this.year = year;
         return this;
     }
-    @Min(value = 1, message = "Monat muss grösser als 0 sein.")
-    @Max(value = 12, message = "Monat darf nicht grösser als 12 sein.")
-    @NotEmpty(message = "Monat darf nicht leer sein.")
+
     public String getMonth() {
         return month;
     }
@@ -75,9 +78,6 @@ public class EntryDateDto implements Serializable {
         return this;
     }
 
-    @Min(value = 1, message = "Tag muss grösser als 0 sein.")
-    @Max(value = 31, message = "Tag darf nicht grösser als 31 sein.")
-    @NotEmpty(message = "Tag darf nicht leer sein.")
     public String getDay() {
         return day;
     }
