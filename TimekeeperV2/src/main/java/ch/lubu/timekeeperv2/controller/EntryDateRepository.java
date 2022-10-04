@@ -1,5 +1,6 @@
 package ch.lubu.timekeeperv2.controller;
 
+import ch.lubu.timekeeperv2.Dto.EntryDateDto;
 import ch.lubu.timekeeperv2.model.EntryDate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -47,7 +48,7 @@ public interface EntryDateRepository extends JpaRepository<EntryDate, Integer> {
         @Query("SELECT DISTINCT MONTH(d.date) FROM EntryDate d WHERE YEAR(d.date) = ?1")
         Iterable<Integer> findDistrictMonths(Integer year);
 
-        // shows sum of amount by day for each day in month
+
         /**
          * This method is used to fetch the sum of all times by day.
          * @param year
@@ -58,7 +59,15 @@ public interface EntryDateRepository extends JpaRepository<EntryDate, Integer> {
         @Query("SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(t.amount))) FROM Time t JOIN t.entryDate d WHERE YEAR(d.date) = ?1 AND MONTH(d.date) = ?2 GROUP BY d.date")
         Iterable<java.sql.Time> findSumByMonth(Integer year, Integer month);
 
-        //find id by date
+        /**
+         * This method is used to fetch Date ID by year month and day.
+         * @param year
+         * @param month
+         * @param day
+         * @link EntryDateController.java -> getSumByDay()
+         * @return Date ID as Integer
+         */
         @Query("SELECT d.id FROM EntryDate d WHERE d.date = ?1")
         Optional<Integer> findIdByDate(Date date);
+
 }

@@ -55,10 +55,10 @@ public class EntryDateController {
     }
     // show single day by year + month + day
     // todo: delete ?
-    @GetMapping(path = "/{year}/{month}/{day}")
-    public EntryDate getDatesByDay(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
-        return entryDateRepository.findByDay(year, month, day);
-    }
+    //@GetMapping(path = "/{year}/{month}/{day}")
+    //public EntryDate getDatesByDay(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
+    //    return entryDateRepository.findByDay(year, month, day);
+    //}
 
     /**
      * This method fetches all days from a given month and year.
@@ -115,6 +115,19 @@ public class EntryDateController {
             e.printStackTrace();
             throw new EntryDateLoadException();
         }
+    }
+
+
+    /**
+     * This method is used to fetch Date ID by concat year, month and day.
+     *
+     * @param Year, Month, Day, Comment
+     * @return ID of the Date
+     * @link EntryDateRepository.java -> save
+     */
+    @GetMapping(path = "/{year}/{month}/{day}/id")
+    public EntryDate getIdByDate(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day){
+        return entryDateRepository.findByDay(year, month, day);
     }
 
     /**

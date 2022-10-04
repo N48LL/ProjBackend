@@ -31,14 +31,16 @@ public class EntryDateDto implements Serializable {
     @Size(max = 1024, message = "Kommentar darf nicht länger als 1024 Zeichen sein.")
     private String comment;
     private List<TimeDto> time = new ArrayList<>();
+    private Integer Id;
 
 
-    public EntryDateDto(String year, String month, String day, String comment, List<TimeDto> time) {
+    public EntryDateDto(String year, String month, String day, String comment, List<TimeDto> time, Integer id) {
         this.year = year;
         this.month = month;
         this.day = day;
         this.comment = comment;
         this.time = time;
+        this.Id = id;
     }
 
     public EntryDateDto(Integer id) {
