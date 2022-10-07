@@ -48,7 +48,6 @@ public interface EntryDateRepository extends JpaRepository<EntryDate, Integer> {
         @Query("SELECT DISTINCT MONTH(d.date) FROM EntryDate d WHERE YEAR(d.date) = ?1")
         Iterable<Integer> findDistrictMonths(Integer year);
 
-
         /**
          * This method is used to fetch the sum of all times by day.
          * @param year

@@ -4,7 +4,9 @@ import ch.lubu.timekeeperv2.model.Category;
 import ch.lubu.timekeeperv2.model.EntryDate;
 import ch.lubu.timekeeperv2.model.Time;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -37,4 +39,12 @@ public interface TimeRepository extends JpaRepository<Time, Integer> {
     // Select entry_date_id, category_id exists
     @Query("SELECT t FROM Time t WHERE t.entryDate = ?1 AND t.category = ?2")
     Optional<Time> findByEntryDateAndCategory(EntryDate entryDate, Category category);
+
+    // delete all in timetable by entry_date_id
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Time t WHERE entry_date_id = ?1")
+    void deleteByEntryDateId(Long entryDate);
+
+
 }

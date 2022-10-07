@@ -85,6 +85,26 @@ public class TimeController {
             }
             return time;
     }
+
+    /**
+     * This method deletes all time entry by fk id of entryDate.
+     *
+     * @param entry_date_id
+     * @return HttpStatus
+     * @link TimeRepository.java -> deleteByEntryDateId
+     * @throws printStackTrace Bad_Request
+     */
+    @DeleteMapping(path = "/{entry_date_id}/delete")
+    public HttpStatus deleteTimeByEntryDateId(@PathVariable Long entry_date_id) {
+        try {
+            timeRepository.deleteByEntryDateId(entry_date_id);
+            return HttpStatus.ACCEPTED;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return HttpStatus.BAD_REQUEST;
+        }
+    }
+
     // create new time from TimeDto.java and find catgegory by name set category by id
     @PostMapping(path = "/add/{categoryName}")
     public ch.lubu.timekeeperv2.model.Time saveTime(@Valid @RequestBody TimeDto newTime, @PathVariable String categoryName) throws TimeCouldNotBeSavedException {

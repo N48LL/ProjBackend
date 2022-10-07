@@ -24,16 +24,12 @@ public class TimeDto implements Serializable {
     private EntryDateDto entryDate;
     private Iterable<Time> time;
 
-
     public TimeDto(CategoryDto category, java.sql.Time amount, EntryDateDto entryDate, Iterable<Time> time) {
         this.category = category;
         this.amount = amount;
         this.entryDate = entryDate;
         this.time = time;
     }
-
-
-    // TODO: Contue from here
 
     public CategoryDto getCategory() {
         return category;
@@ -67,7 +63,4 @@ public class TimeDto implements Serializable {
         this.time = time;
         return this;
     }
-
-
-
 }
