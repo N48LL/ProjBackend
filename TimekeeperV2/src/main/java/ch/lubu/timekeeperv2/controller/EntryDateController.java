@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.sql.Time;
@@ -127,7 +128,22 @@ public class EntryDateController {
      */
     @GetMapping(path = "/{year}/{month}/{day}/id")
     public EntryDate getIdByDate(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day){
-        return entryDateRepository.findByDay(year, month, day);
+        //if not found, return http status 404
+        try {
+            if (entryDateRepository.findByDay(year, month, day) == null) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Date not found");
+            } else {
+                return entryDateRepository.findByDay(year, month, day);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            //return  exception for HttpStatus.BAD_REQUEST;
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Date not found", e);
+        }
+
+
+
+        //return entryDateRepository.findByDay(year, month, day);
     }
 
     /**
@@ -151,7 +167,7 @@ public class EntryDateController {
     }
 
     /**
-     * This method is used to update a date with comment.
+     * This method is used to update a date's comment.
      * @param id
      * @param entryDate
      * @link EntryDateRepository.java
@@ -159,17 +175,15 @@ public class EntryDateController {
      * @throws DateCouldNotBeSavedException
      */
     @PutMapping(path = "/update/{id}")
-    public EntryDate updateDate(@PathVariable Integer id,@Valid @RequestBody EntryDateDto entryDate) throws ParseException {
-        EntryDate entryDateToUpdate = entryDateRepository.findById(id).get();
-
-        try {
-            entryDateToUpdate.setDate(entryDate.getYear(), entryDate.getMonth(), entryDate.getDay());
-            entryDateToUpdate.setComment(entryDate.getComment());
-            entryDateRepository.save(entryDateToUpdate);
-        } catch (Exception ex) {
-            throw new DateCouldNotBeSavedException(entryDateToUpdate);
+    public EntryDate updateComment(@PathVariable int id, @RequestBody EntryDateDto Dto) {
+        Optional<EntryDate> t = entryDateRepository.findById(id);
+        if (t.isPresent()) {
+            t.get().setComment(Dto.getComment());
+            entryDateRepository.save(t.get());
+            return t.get();
+        } else {
+            throw new EntryDateNotFoundException(id);
         }
-        return entryDateToUpdate;
     }
 
     /**

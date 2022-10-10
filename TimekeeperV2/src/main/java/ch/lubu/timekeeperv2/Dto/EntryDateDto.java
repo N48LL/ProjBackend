@@ -18,17 +18,17 @@ public class EntryDateDto implements Serializable {
     @Size(max = 4, min = 4, message = "Jahr muss 4-stellig sein.")
     @Max(value = 2099, message = "Das jahr muss in diesem Jahrhundert liegen.")
     @Min(value = 2000, message = "Das jahr muss in diesem Jahrhundert liegen.")
-    @NotEmpty(message = "Jahr darf nicht leer sein.")
+    @NotEmpty( message = "Jahr darf nicht leer sein.")
     private String year;
     @Min(value = 1, message = "Monat muss grösser als 0 sein.")
     @Max(value = 12, message = "Monat darf nicht grösser als 12 sein.")
-    @NotEmpty(message = "Monat darf nicht leer sein.")
+    @NotEmpty( message = "Monat darf nicht leer sein.")
     private String month;
     @Min(value = 1, message = "Tag muss grösser als 0 sein.")
     @Max(value = 31, message = "Tag darf nicht grösser als 31 sein.")
-    @NotEmpty(message = "Tag darf nicht leer sein.")
+    @NotEmpty( message = "Tag darf nicht leer sein.")
     private String day;
-    @Size(max = 1024, message = "Kommentar darf nicht länger als 1024 Zeichen sein.")
+    @Size(max = 518, message = "Kommentar darf nicht länger als 518 Zeichen sein.")
     private String comment;
     private List<TimeDto> time = new ArrayList<>();
     private Integer Id;
