@@ -17,8 +17,9 @@ import javax.validation.Valid;
  * @see TimeRepository
  * @see Validation: {@link ch.lubu.timekeeperv2.Dto.TimeDto}
  */
-@RestController
+
 @CrossOrigin
+@RestController
 @RequestMapping("/time")
 public class TimeController {
 
@@ -29,28 +30,14 @@ public class TimeController {
     @Autowired
     private EntryDateRepository entryDateRepository;
 
-    // Show ALL times
+    /**
+     * This method is used to get all Time entries.
+     * @return Iterable of all Time entries.
+     * @see Time
+     */
     @GetMapping(path = "/all")
     public Iterable<ch.lubu.timekeeperv2.model.Time> getAllTimes() {
         return timeRepository.findAll();
-    }
-
-    // Show all by year
-    @GetMapping(path = "/{year}")
-    public Iterable<ch.lubu.timekeeperv2.model.Time> getTimesByYear(@PathVariable Integer year) {
-        return timeRepository.findByYear(year);
-    }
-
-    // show all by year + month
-    @GetMapping(path = "/{year}/{month}")
-    public Iterable<ch.lubu.timekeeperv2.model.Time> getTimesByMonth(@PathVariable Integer year, @PathVariable Integer month) {
-        return timeRepository.findByMonth(year, month);
-    }
-
-    // show single day by year + month + day
-    @GetMapping(path = "/{year}/{month}/{day}")
-    public Iterable<ch.lubu.timekeeperv2.model.Time> getTimesByDay(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
-        return timeRepository.findByDay(year, month, day);
     }
 
     /**
@@ -154,7 +141,10 @@ public class TimeController {
         }
     }
 
-    // delete Time entry by time id
+    /**
+     * This method deletes all time entry by id of EntryDate.
+     * @param id
+     */
     @DeleteMapping(path = "/delete/{id}")
     public HttpStatus deleteTime(@PathVariable int id) {
         try {

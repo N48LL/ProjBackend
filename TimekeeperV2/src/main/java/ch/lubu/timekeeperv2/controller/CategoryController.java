@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping("/category")
 public class CategoryController {
 

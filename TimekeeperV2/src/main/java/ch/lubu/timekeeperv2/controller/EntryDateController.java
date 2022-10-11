@@ -24,8 +24,8 @@ import java.util.Optional;
  * @see EntryDateRepository
  */
 
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping("/date")
 public class EntryDateController {
 
@@ -140,10 +140,6 @@ public class EntryDateController {
             //return  exception for HttpStatus.BAD_REQUEST;
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Date not found", e);
         }
-
-
-
-        //return entryDateRepository.findByDay(year, month, day);
     }
 
     /**
@@ -204,27 +200,23 @@ public class EntryDateController {
     }
 
     /**
-     * This method is used to fetch the sum of all times by day.
+     * This method is used to fetch the sum of a day's times by id.
      * @link EntryDateRepository.java -> findSumByMonth
-     * @param year, month, day
-     * @return sum of all times by day in form of hh:mm:ss
+     * @param id
+     * @return sum of all times of a day in form of hh:mm:ss
      * @throws EntryDateNotFoundException
      */
-    @GetMapping(path = "/{year}/{month}/sum")
-    public Iterable<Time> getSumByMonth(@PathVariable Integer year, @PathVariable Integer month) {
-        if (month > 12 || month < 1 || year < 1900 || year > 2999) {
-            throw new EntryDateNotFoundException(year, month);
-        }
+    @GetMapping(path = "/{id}/sum")
+    public Iterable<Time> getSumById(@PathVariable Integer id) {
         try {
-            return entryDateRepository.findSumByMonth(year, month);
+            return (Iterable<Time>) entryDateRepository.findSumByDay(id);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new EntryDateNotFoundException(year, month);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Date not found", e);
         }
     }
 
     // create new date by year + month + day + comment. If date already exists return id of existing date
-    // todo: delete?
     @PostMapping(path = "/addnew")
     public Integer saveNewDate(@Valid @RequestBody EntryDateDto Dto) throws ParseException {
         EntryDate t = new EntryDate();
