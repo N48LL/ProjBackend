@@ -50,7 +50,7 @@ class EntryDateControllerTest {
      */
     @Test
     void whenPostRequestToEntryDateAndValidEntries() throws Exception {
-        String testReturnContent = "{\"id\":null,\"date\":1670799600000,\"comment\":\"CommentText\",\"year\":\"2022\",\"times\":null}";
+        String testReturnContent = "{\"id\":null,\"date\":1670799600000,\"comment\":\"CommentText\",\"times\":null,\"year\":\"2022\"}";
         EntryDateDto entryDateDto = new EntryDateDto();
 
         entryDateDto.setComment("CommentText");
