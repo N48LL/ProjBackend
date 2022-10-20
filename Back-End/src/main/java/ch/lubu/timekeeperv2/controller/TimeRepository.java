@@ -13,6 +13,7 @@ import java.util.Optional;
 /**
  * This is the repository for the {@link Time} entity.
  * @author Lukas Bühler
+ * TODO: DELETE unised Queries
  */
 public interface TimeRepository extends JpaRepository<Time, Integer> {
 

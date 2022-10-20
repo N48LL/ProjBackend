@@ -111,19 +111,27 @@ public class TimeController {
     }
 
     // show sum of amount by day - amount in form of hh:mm:ss
+    // TODO DELETE and run test
     @GetMapping(path = "/{year}/{month}/{day}/sum")
     public java.sql.Time getSumByDay(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
         return timeRepository.findSumByDay(year, month, day);
     }
 
     // shows all category, amount by day
+    // TODO DELETE and run test
     @GetMapping(path = "/{year}/{month}/{day}/daysum")
     public Iterable<Object[]> getSumByDayWithCategory(@PathVariable Integer year, @PathVariable Integer month, @PathVariable Integer day) {
         return timeRepository.findSumByDayGroupByCategory(year, month, day);
     }
 
 
-    // update time by id
+    /**
+     * This method updates a time entry by id.
+     * @param id
+     * @param newTime
+     * @return Time
+     * @throws TimeCouldNotBeSavedException
+     */
     @PutMapping(path = "/update/{id}")
     public ch.lubu.timekeeperv2.model.Time updateTime(@PathVariable Integer id, @Valid @RequestBody TimeDto newTime) throws TimeCouldNotBeSavedException {
         ch.lubu.timekeeperv2.model.Time time = timeRepository.findById(id).get();
@@ -144,6 +152,9 @@ public class TimeController {
     /**
      * This method deletes all time entry by id of EntryDate.
      * @param id
+     * @return HttpStatus
+     * @link TimeRepository.java -> deleteByEntryDateId
+     * @throws printStackTrace Bad_Request
      */
     @DeleteMapping(path = "/delete/{id}")
     public HttpStatus deleteTime(@PathVariable int id) {
